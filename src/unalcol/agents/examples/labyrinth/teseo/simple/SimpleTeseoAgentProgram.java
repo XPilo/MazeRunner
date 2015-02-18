@@ -55,6 +55,13 @@ public abstract class SimpleTeseoAgentProgram  implements AgentProgram{
           booleanValue();
 
       int d = accion(PF, PD, PA, PI, MT);
+      /**
+       * d = 0 el automata no gira
+       * d = 1 el automata gira una vez
+       * d = 2 el automata gira dos veces
+       * d = 3 el automata gira tres veces
+       * Despues de terminar los giros el automata se mueve hacia adelante
+       */
       if (0 <= d && d < 4) {
         for (int i = 1; i <= d; i++) {
           cmd.add(language.getAction(3)); //rotate
