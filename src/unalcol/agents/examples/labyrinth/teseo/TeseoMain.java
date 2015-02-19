@@ -4,6 +4,8 @@ import unalcol.agents.Agent;
 import unalcol.agents.examples.labyrinth.*;
 import unalcol.agents.examples.labyrinth.teseo.simple.RandomReflexTeseo;
 import unalcol.agents.simulate.util.*;
+import unalcol.agents.examples.labyrinth.teseo.simple.MyRunner;
+        
 
 public class TeseoMain {
   private static SimpleLanguage getLanguage(){
@@ -16,7 +18,8 @@ public class TeseoMain {
   public static void main( String[] argv ){
     //  InteractiveAgentProgram p = new InteractiveAgentProgram( getLanguage() );
 //    TeseoSimple p = new TeseoSimple();
-    RandomReflexTeseo p = new RandomReflexTeseo();
+    //RandomReflexTeseo p = new RandomReflexTeseo();
+    MyRunner p = new MyRunner();
     p.setLanguage(getLanguage());
     LabyrinthDrawer.DRAW_AREA_SIZE = 600;
     LabyrinthDrawer.CELL_SIZE = 40;
