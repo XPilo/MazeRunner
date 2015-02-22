@@ -31,7 +31,7 @@ public class MemoryTest {
         //public Casilla(boolean PF, boolean PD, boolean PA, boolean PI, int x, int y)
         casillaInicio = new Casilla(true, false, false, true, 0,0);
         mem = new Memory();
-        mem.setNorte(Memory.PF);
+        mem.setNorte(Memory.FRENTE);
     }
     
     @AfterClass
@@ -101,9 +101,38 @@ public class MemoryTest {
     }
     
     @Test
-    public void testCamino(){
-        System.out.println(mem.getNorte());
-        System.out.println(mem.getCamino());
+    public void testInicio(){
+        //  mem.isInicio = true
+        //  si es true se coloca el norte hacia el frente del automata
+        //  se calcula el moviento del automata y se ubica el norte deacuerdo a
+        //  este movimiento.
+        if (mem.isInicio()){
+            int giro = Memory.DERECHA;
+            int x = 0,y = 0;
+            switch(giro){
+                case Memory.DERECHA:
+                    mem.setNorte(Memory.IZQUIERDA);
+                    x++;
+                    break;
+                case Memory.IZQUIERDA:
+                    mem.setNorte(Memory.DERECHA);
+                    x--;
+                    break;
+                case Memory.ATRAS:
+                    mem.setNorte(Memory.ATRAS);
+                    y--;
+                    break;
+                default: //se mueve hacia el frente
+                    y++;
+            }
+            
+            mem.setX(x);
+            mem.setY(y);
+            mem.setInicio(false);
+            Map<Casilla, ArrayList<Casilla>> caminoPrueba = mem.getCamino();
+            caminoPrueba.put(casillaInicio, null);
+            System.out.println(caminoPrueba.containsKey(casillaInicio));
+        }
     }
     
 }

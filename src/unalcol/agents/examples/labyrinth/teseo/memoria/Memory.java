@@ -14,17 +14,27 @@ import java.util.Map;
  * @author Jose
  */
 public class Memory {
-    public static final int INICIO = -1;
-    public static final int PF = 0;
-    public static final int PD = 1;
-    public static final int PA = 2;
-    public static final int PI = 3;
+    public static final int FRENTE = 0;
+    public static final int DERECHA = 1;
+    public static final int ATRAS = 2;
+    public static final int IZQUIERDA = 3;
     
+    private boolean inicio;
     private int norte;
+    private int x,y;
     private Map<Casilla, ArrayList<Casilla>> camino;
     
     public Memory(){
         camino = new HashMap<>();
+        inicio = true;
+    }
+
+    public boolean isInicio() {
+        return inicio;
+    }
+
+    public void setInicio(boolean inicio) {
+        this.inicio = inicio;
     }
 
     public int getNorte() {
@@ -35,6 +45,23 @@ public class Memory {
         this.norte = norte;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    
     public Map<Casilla, ArrayList<Casilla>> getCamino() {
         return camino;
     }
