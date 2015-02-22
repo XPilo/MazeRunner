@@ -5,6 +5,10 @@
  */
 package unalcol.agents.examples.labyrinth.teseo.memoria;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Jose
@@ -16,19 +20,11 @@ public class Memory {
     public static final int PA = 2;
     public static final int PI = 3;
     
-    private int ultimoMovimiento;
     private int norte;
+    private Map<Casilla, ArrayList<Casilla>> camino;
+    
     public Memory(){
-        ultimoMovimiento = INICIO;
-        norte = -1;
-    }
-
-    public int getUltimoMovimiento() {
-        return ultimoMovimiento;
-    }
-
-    public void setUltimoMovimiento(int ultimoMovimiento) {
-        this.ultimoMovimiento = ultimoMovimiento;
+        camino = new HashMap<>();
     }
 
     public int getNorte() {
@@ -38,6 +34,16 @@ public class Memory {
     public void setNorte(int norte) {
         this.norte = norte;
     }
+
+    public Map<Casilla, ArrayList<Casilla>> getCamino() {
+        return camino;
+    }
+
+    public void setCamino(Map<Casilla, ArrayList<Casilla>> camino) {
+        this.camino = camino;
+    }
+
+    
     
     
 }

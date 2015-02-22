@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package unalcol.agents.examples.labyrinth.teseo.simple;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import unalcol.agents.examples.labyrinth.teseo.memoria.Casilla;
 import unalcol.agents.examples.labyrinth.teseo.memoria.Memory;
 
 /**
@@ -42,35 +46,18 @@ public class MyRunner extends SimpleTeseoAgentProgram {
          * PA = 2
          * PI = 3
          */
-        
-//        //Se realiza el primer movimiento y se ubica la posicion en la que quedo
-//        //el norte en relación al frente del automata
-//        if (mem.getUltimoMovimiento() == Memory.INICIO){
-//            if (!PF){
-//                mem.setUltimoMovimiento(Memory.PF);
-//                mem.setNorte(Memory.PF);
-//                return Memory.PF;
-//            }
-//            if (!PD){
-//                mem.setUltimoMovimiento(Memory.PD);
-//                mem.setNorte(Memory.PI);
-//                return Memory.PD;
-//            }
-//            if (!PA){
-//                mem.setUltimoMovimiento(Memory.PA);
-//                mem.setNorte(Memory.PA);
-//                return Memory.PA;
-//            }
-//            if (!PI){
-//                mem.setUltimoMovimiento(Memory.PI);
-//                mem.setNorte(Memory.PD);
-//                return Memory.PI;
-//            }
-//        }
-        if (!PD) return Memory.PD;
-        if (PD && !PF) return Memory.PF;
-        if (PD && PF) return Memory.PI;
-        if (PD && PF && PI) return Memory.PA;
+        Map<Casilla, ArrayList<Casilla>> camino = new HashMap<>();
+        Casilla c = new Casilla();
+        c.setX(0);
+        c.setY(0);
+        camino.put(c, null);
+        c.setX(0);
+        c.setY(1);
+        System.out.println(camino.containsKey(c)); 
+//        if (!PI) return Memory.PI;
+//        if (PI && !PF) return Memory.PF;
+//        if (PI && PF && !PD) return Memory.PD;
+//        if (PD && PF && PI) return Memory.PA;
        return -1;
     }    
 }
