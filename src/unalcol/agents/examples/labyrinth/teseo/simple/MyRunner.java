@@ -15,16 +15,13 @@ import unalcol.agents.examples.labyrinth.teseo.memoria.Memory;
  * @author Jose
  */
 public class MyRunner extends SimpleTeseoAgentProgram {
-
-    public MyRunner() {}
     
-    public int ubicar_Norte(int norte, int mov){
-        switch(norte){
-            
-        }
-    return 0;
+    private Memory mem;
+    
+    public MyRunner() {
+        mem = new Memory();
     }
-
+    
     /**
      *
      * @param PF Pared al frente
@@ -37,7 +34,6 @@ public class MyRunner extends SimpleTeseoAgentProgram {
     @Override    
     public int accion(boolean PF, boolean PD, boolean PA, boolean PI, boolean MT) {
         if (MT) return -1;
-        Memory mem = new Memory();
         /**
          * El automata solo se movera cuando el numero de giros k
          * lo deje mirando hacia un lado sin pared.

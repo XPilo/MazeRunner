@@ -22,6 +22,7 @@ public class Memory {
     private boolean inicio;
     private int norte;
     private int x,y;
+    private Casilla casillaAnterior;
     private Map<Casilla, ArrayList<Casilla>> camino;
     
     public Memory(){
@@ -61,7 +62,14 @@ public class Memory {
         this.y = y;
     }
 
-    
+    public Casilla getCasillaAnterior() {
+        return casillaAnterior;
+    }
+
+    public void setCasillaAnterior(Casilla casillaAnterior) {
+        this.casillaAnterior = casillaAnterior;
+    }
+  
     public Map<Casilla, ArrayList<Casilla>> getCamino() {
         return camino;
     }
