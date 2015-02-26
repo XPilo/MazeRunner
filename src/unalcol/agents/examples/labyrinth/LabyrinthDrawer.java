@@ -1,6 +1,5 @@
 package unalcol.agents.examples.labyrinth;
 
-import unalcol.agents.simulate.SimulatedAgent;
 import unalcol.agents.simulate.*;
 
 import java.awt.*;

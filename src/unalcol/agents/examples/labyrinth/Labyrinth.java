@@ -1,10 +1,5 @@
 package unalcol.agents.examples.labyrinth;
 
-import unalcol.agents.Percept;
-import unalcol.agents.Agent;
-import unalcol.agents.Action;
-import unalcol.agents.simulate.SimulatedAgent;
-import unalcol.agents.simulate.gui.SimpleView;
 import unalcol.agents.simulate.util.*;
 import unalcol.agents.*;
 import unalcol.agents.simulate.*;
@@ -47,6 +42,7 @@ public class Labyrinth extends Environment{
         int x = ((Integer) a.getAttribute(X)).intValue();
         int y = ((Integer) a.getAttribute(Y)).intValue();
         Percept p = sense(a);
+//        System.out.println(p);
         String msg = null;
         switch (language.getActionIndex(act)) {
         case 0: // no_op
@@ -58,8 +54,8 @@ public class Labyrinth extends Environment{
         case 2: // advance
             if (!((Boolean) p.getAttribute("front")).
                 booleanValue() &&
-                !((Boolean) p.getAttribute("afront")).
-                booleanValue() ) {
+                ( p.getAttribute("afront") == null || !((Boolean) p.getAttribute("afront")).
+                booleanValue() ) ) {
                 switch (direction) {
                 case 0:
                     y--;

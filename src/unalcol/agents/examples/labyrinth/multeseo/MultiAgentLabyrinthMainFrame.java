@@ -1,28 +1,43 @@
-package unalcol.agents.examples.labyrinth;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package unalcol.agents.examples.labyrinth.multeseo;
 
-import unalcol.agents.*;
-import unalcol.agents.examples.labyrinth.*;
-import unalcol.agents.simulate.util.*;
-import unalcol.agents.simulate.gui.*;
-import unalcol.reflect.loader.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.lang.reflect.*;
-import java.io.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import unalcol.agents.Agent;
+import unalcol.agents.AgentProgram;
+import unalcol.agents.examples.labyrinth.Labyrinth;
+import unalcol.agents.examples.labyrinth.LabyrinthDrawer;
+import unalcol.agents.simulate.gui.SimpleView;
+import unalcol.agents.simulate.gui.WorkingPanel;
+import unalcol.agents.simulate.util.InteractiveAgentProgram;
+import unalcol.agents.simulate.util.SimpleLanguage;
+import unalcol.reflect.loader.Loader;
+import unalcol.types.collection.vector.Vector;
 
 /**
- * Title:
- * Description:
- * Copyright:    Copyright (c) 2001
- * Company:
- * @author
- * @version 1.0
+ *
+ * @author Jonatan
  */
-
-
-
-public class LabyrinthMainFrame extends JFrame {
+public class MultiAgentLabyrinthMainFrame extends JFrame {
 
 
   protected SimpleLanguage language = null;
@@ -31,8 +46,8 @@ public class LabyrinthMainFrame extends JFrame {
   protected String fileName = null;
   protected Thread thread = null;
 
-  protected Agent agent;
-  protected Labyrinth labyrinth = null;
+  protected Vector<Agent> agent;
+  protected MultiAgentLabyrinth labyrinth = null;
   protected SimpleView view;
   protected String title = "Labyrinth";
 
@@ -57,6 +72,8 @@ public class LabyrinthMainFrame extends JFrame {
   protected WorkingPanel drawArea = new WorkingPanel( new LabyrinthDrawer( ) );
   protected BorderLayout borderLayout2 = new BorderLayout();
   protected JPanel jPanel1 = new JPanel();
+  protected JLabel jLabel0 = new JLabel();
+  protected JTextField jTextField0 = new JTextField();
   protected JLabel jLabel1 = new JLabel();
   protected JTextField jTextField1 = new JTextField();
   protected JLabel jLabel2 = new JLabel();
@@ -65,25 +82,25 @@ public class LabyrinthMainFrame extends JFrame {
   protected JButton jButton2 = new JButton();
 //  MultiChart multiChart1 = new MultiChart();
 
-  public Labyrinth newLabyrinthInstance(){
-    labyrinth = new Labyrinth( agent, new int[Labyrinth.DEFAULT_SIZE][Labyrinth.DEFAULT_SIZE], language );
+  public MultiAgentLabyrinth newLabyrinthInstance(){
+    labyrinth = new MultiAgentLabyrinth( agent, new int[Labyrinth.DEFAULT_SIZE][Labyrinth.DEFAULT_SIZE], language );
     return labyrinth;
   }
 
   public void initLabyrinth(){
     labyrinth = this.newLabyrinthInstance();
-//    for( int i=0; i<)
-    labyrinth.setAgentPosition( 0, 0, 0, 0);
+    for( int k=0; k<agent.size(); k++ )
+        labyrinth.setAgentPosition( k, 0, 0, 0);
     labyrinth.setDelay(100);
     drawArea.getDrawer().setEnvironment( labyrinth );
     labyrinth.registerView(view);
   }
 
-  public LabyrinthMainFrame( Agent _agent, SimpleLanguage _language ) {
+  public MultiAgentLabyrinthMainFrame( Vector<Agent> _agent, SimpleLanguage _language ) {
     this( "Labyrinth", _agent, _language );
   }
 
-  public LabyrinthMainFrame( String _title, Agent _agent, SimpleLanguage _language ) {
+  public MultiAgentLabyrinthMainFrame( String _title, Vector<Agent> _agent, SimpleLanguage _language ) {
     title = _title;
     view = new SimpleView( drawArea );
     agent = _agent;
@@ -167,7 +184,10 @@ public class LabyrinthMainFrame extends JFrame {
         drawArea_mouseClicked(e);
       }
     });
-    jLabel1.setText("Initial Agent Position X:");
+    jLabel0.setText("Agent:");
+    jTextField0.setPreferredSize(new Dimension(37, 20));
+    jTextField0.setText("0");
+    jLabel1.setText("Initial Pos X:");
     jTextField1.setPreferredSize(new Dimension(37, 20));
     jTextField1.setText("0");
     jLabel2.setText("Y");
@@ -189,6 +209,8 @@ public class LabyrinthMainFrame extends JFrame {
     jPanel2.add(drawArea,  BorderLayout.CENTER);
     this.getContentPane().add(jPanel2,  BorderLayout.CENTER);
     this.getContentPane().add(jPanel1,  BorderLayout.SOUTH);
+    jPanel1.add(jLabel0, null);
+    jPanel1.add(jTextField0, null);
     jPanel1.add(jLabel1, null);
     jPanel1.add(jTextField1, null);
     jPanel1.add(jLabel2, null);
@@ -236,6 +258,7 @@ public class LabyrinthMainFrame extends JFrame {
   protected void drawArea_mouseClicked(MouseEvent e) {
     int X = e.getX();
     int Y = e.getY();
+    labyrinth.agent_id = Integer.parseInt(jTextField0.getText());
     labyrinth.edit(X, Y);
     drawArea.update();
   }
@@ -300,7 +323,8 @@ public class LabyrinthMainFrame extends JFrame {
   protected void jButton1_actionPerformed(ActionEvent e) {
     int x = Integer.parseInt( jTextField1.getText() );
     int y = Integer.parseInt( jTextField2.getText() );
-    labyrinth.setAgentPosition( 0, x, y, 0 );
+    labyrinth.agent_id = Integer.parseInt(jTextField0.getText());
+    labyrinth.setAgentPosition( labyrinth.agent_id, x, y, 0 );
     drawArea.update();
   }
 
