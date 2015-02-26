@@ -6,6 +6,7 @@ import unalcol.agents.examples.labyrinth.teseo.simple.RandomReflexTeseo;
 import unalcol.agents.simulate.util.*;
 
 public class TeseoMain {
+    
   private static SimpleLanguage getLanguage(){
     return  new SimpleLanguage( new String[]{"front", "right", "back", "left", "exit",
         "afront", "aright", "aback", "aleft"},

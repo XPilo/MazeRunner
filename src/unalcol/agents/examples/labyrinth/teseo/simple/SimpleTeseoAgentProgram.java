@@ -21,6 +21,12 @@ import unalcol.agents.Action;
 public abstract class SimpleTeseoAgentProgram  implements AgentProgram{
   protected SimpleLanguage language;
   protected Vector<String> cmd = new Vector<String>();
+    private int matrix[][]=new int[15][15];
+    private int x = 0;
+    private int y = 0;
+    private int movimiento = 1;
+    private int pila[];
+  
   public SimpleTeseoAgentProgram( ) {
   }
 
@@ -55,6 +61,37 @@ public abstract class SimpleTeseoAgentProgram  implements AgentProgram{
           booleanValue();
 
       int d = accion(PF, PD, PA, PI, MT);
+      /*
+      switch (d){
+        case 0:
+            matrix[x][y+1] = 1;
+            y++;
+            break;
+        case 1:
+            matrix[x+1][y] = 1;
+            x++;
+            break;
+        case 2:
+            matrix[x][y-1] = 1;
+            y--;
+            break;
+        case 3:
+            matrix[x-1][y] = 1;
+            x--;
+            break;
+        }
+      
+      System.out.println("\n"+"Movimiento" + movimiento);  
+        for (int m = 0; m <= x; m++) {
+            for (int n = 0; n <= y; n++) {
+                System.out.print(matrix[m][n] + " ");
+            }
+            System.out.print("\n");
+        }
+      movimiento++;
+      */
+      
+      
       /**
        * d = 0 el automata no gira
        * d = 1 el automata gira una vez
@@ -74,6 +111,9 @@ public abstract class SimpleTeseoAgentProgram  implements AgentProgram{
     }
     String x = cmd.get(0);
     cmd.remove(0);
+    
+    
+    
     return new Action(x);
   }
 

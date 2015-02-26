@@ -26,31 +26,106 @@ public class RandomReflexTeseo  extends SimpleTeseoAgentProgram {
         if (MT) return -1;
         boolean flag = true;
         int k=0;
+        
         while( flag ){
-            k = (int)(Math.random()*4);
-            /**
-             * El automata solo se movera cuando el numero de giros k
-             * lo deje mirando hacia un lado sin pared.
-             * PF = 0
-             * PD = 1
-             * PA = 2
-             * PI = 3
-             */
-            switch(k){
-                case 0:
-                    flag = PF;
-                    break;
-                case 1:
-                    flag = PD;
-                    break;
-                case 2:
-                    flag = PA;
-                    break;
-                default:
-                    flag = PI;
-                    break;                    
+            
+            if (PI&&!PF&&PD&&!PA){
+                k = 0;
+                flag = false;
+                System.out.println("Caso 1");
+                
+                //puede ir arriba y abajo
+            
             }
-        }
+            else if (!PI&&PF&&!PD&&PA){
+                k = 1;
+                flag = false;
+                System.out.println("Caso 2");
+                //puede ir izquierda o derecha
+            
+            }
+            else if (!PI&&!PF&&PD&&!PA){
+                k = 0;
+                flag = false;
+                System.out.println("Caso 3");
+                //puede ir arriba, izquierda o abajo
+            }
+            else if (!PI&&!PF&&!PD&&PA){
+                k = 3;
+                flag = false;
+                System.out.println("Caso 4");
+                //puede ir arriba, izquierda o derecha                
+            }
+            else if (PI&&!PF&&!PD&&!PA){
+                k = 1;
+                flag = false;
+                System.out.println("Caso 5");
+                //puede ir arriba, derecha o izquierda
+            }
+            else if (!PI&&PF&&!PD&&!PA){
+                k = 3;
+                flag = false;
+                System.out.println("Caso 6");
+                //puede ir izquierda, derecha y atras
+            }
+            else if (PI&&PF&&!PD&&!PA){
+                k = 1;
+                flag = false;            
+                System.out.println("Caso 7");
+                //puede ir derecha o abajo
+            }
+            else if (PI&&!PF&&PD&&!PA){
+                k = 0;
+                flag = false;            
+                System.out.println("Caso 8");
+                //puede ir arriba o derecha
+            }
+            else if (!PI&&!PF&&PD&&PA){
+                k = 0;
+                flag = false;           
+                System.out.println("Caso 9");
+                //puede ir izquierda o arriba               
+            }
+            else if (!PI&&PF&&PD&&!PA){
+                k = 3;
+                flag = false;            
+                System.out.println("Caso 10");
+                //puede ir izquierda o abajo
+            }
+            else if (PI&&PF&&!PD&&PA){
+                k = 1;
+                flag = false;            
+                 System.out.println("Caso 11");
+                 //puede ir a derecha
+            }
+            else if (PI&&!PF&&PD&&PA){
+                k = 0;
+                flag = false;            
+                System.out.println("Caso 12");
+                //puede ir arriba
+            }
+            else if (!PI&&PF&&PD&&PA){
+                k = 3;
+                flag = false;            
+                System.out.println("Caso 13");
+                //puede ir izquierda
+            }
+            else if (PI&&PF&&PD&&!PA){
+                k = 2;
+                flag = false;            
+                System.out.println("Caso 14");
+                //puede ir atras
+            }
+            else if (!PI&&!PF&&!PD&&!PA){
+                //k = 0;
+                k = (int)(Math.random()*4);
+                flag = false;            
+                System.out.println("Caso 14");
+                //puede ir a todos lados
+            }
+            
+        }    
+        
         return k;
     }    
 }
