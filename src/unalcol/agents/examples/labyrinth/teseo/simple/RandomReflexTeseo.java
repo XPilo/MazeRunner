@@ -44,7 +44,7 @@ public class RandomReflexTeseo  extends SimpleTeseoAgentProgram {
             
             }
             else if (!PI&&!PF&&PD&&!PA){
-                k = 0;
+                k = 3;
                 flag = false;
                 System.out.println("Caso 3");
                 //puede ir arriba, izquierda o abajo
@@ -56,7 +56,7 @@ public class RandomReflexTeseo  extends SimpleTeseoAgentProgram {
                 //puede ir arriba, izquierda o derecha                
             }
             else if (PI&&!PF&&!PD&&!PA){
-                k = 1;
+                k = 0;
                 flag = false;
                 System.out.println("Caso 5");
                 //puede ir arriba, derecha o izquierda
@@ -116,8 +116,8 @@ public class RandomReflexTeseo  extends SimpleTeseoAgentProgram {
                 //puede ir atras
             }
             else if (!PI&&!PF&&!PD&&!PA){
-                //k = 0;
-                k = (int)(Math.random()*4);
+                k = 2;
+                //k = (int)(Math.random()*4);
                 flag = false;            
                 System.out.println("Caso 14");
                 //puede ir a todos lados
