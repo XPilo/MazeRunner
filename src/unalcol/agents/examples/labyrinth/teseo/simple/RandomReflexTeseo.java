@@ -26,7 +26,6 @@ public class RandomReflexTeseo  extends SimpleTeseoAgentProgram {
         if (MT) return -1;
         boolean flag = true;
         int k=0;
-        
         while( flag ){
             
             if (PI&&!PF&&PD&&!PA){
