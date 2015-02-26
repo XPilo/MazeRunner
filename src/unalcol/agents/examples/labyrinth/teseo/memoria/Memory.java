@@ -19,23 +19,18 @@ public class Memory {
     public static final int ATRAS = 2;
     public static final int IZQUIERDA = 3;
     
-    private boolean inicio;
     private int norte;
     private int x,y;
-    private Casilla casillaAnterior;
+    //private Casilla casillaAnterior;
     private Map<Casilla, ArrayList<Casilla>> camino;
+    private ArrayList<Casilla> casillasNoVisitadas;
     
     public Memory(){
         camino = new HashMap<>();
-        inicio = true;
-    }
-
-    public boolean isInicio() {
-        return inicio;
-    }
-
-    public void setInicio(boolean inicio) {
-        this.inicio = inicio;
+        norte = FRENTE;
+        x = 0;
+        y = 0;
+        casillasNoVisitadas = new ArrayList<>();
     }
 
     public int getNorte() {
@@ -62,13 +57,13 @@ public class Memory {
         this.y = y;
     }
 
-    public Casilla getCasillaAnterior() {
-        return casillaAnterior;
-    }
-
-    public void setCasillaAnterior(Casilla casillaAnterior) {
-        this.casillaAnterior = casillaAnterior;
-    }
+//    public Casilla getCasillaAnterior() {
+//        return casillaAnterior;
+//    }
+//
+//    public void setCasillaAnterior(Casilla casillaAnterior) {
+//        this.casillaAnterior = casillaAnterior;
+//    }
   
     public Map<Casilla, ArrayList<Casilla>> getCamino() {
         return camino;
@@ -78,7 +73,12 @@ public class Memory {
         this.camino = camino;
     }
 
-    
-    
+    public ArrayList<Casilla> getCasillasNoVisitadas() {
+        return casillasNoVisitadas;
+    }
+
+    public void setCasillasNoVisitadas(ArrayList<Casilla> casillasNoVisitadas) {
+        this.casillasNoVisitadas = casillasNoVisitadas;
+    }  
     
 }

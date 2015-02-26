@@ -6,6 +6,7 @@
 package unalcol.agents.examples.labyrinth.teseo.memoria;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -20,7 +21,6 @@ import static org.junit.Assert.*;
  */
 public class MemoryTest {
     
-    private Casilla casillaInicio;
     private Memory mem;
     private int giro;
     private int x;
@@ -29,14 +29,19 @@ public class MemoryTest {
     private boolean PD;
     private boolean PA;
     private boolean PI;
-    //paredes relativas al norte
-    private boolean RPF;
-    private boolean RPD;
-    private boolean RPA;
-    private boolean RPI;
-    private Casilla casillaAnterior;
-    Map<Casilla, ArrayList<Casilla>> caminoPrueba;
-    ArrayList<Casilla> vecinos;
+    private boolean TPF;
+    private boolean TPD;
+    private boolean TPA;
+    private boolean TPI;
+    private Map<Casilla, ArrayList<Casilla>> caminoPrueba;
+    private ArrayList<Casilla> vecinos;
+    private ArrayList<Casilla> casillasNoVisitadas;
+    private Casilla casilla;
+    boolean flag;
+    boolean n;
+    boolean atras = false;
+    
+    
     public MemoryTest() {
     }
     
@@ -53,13 +58,10 @@ public class MemoryTest {
     @Before
     public void setUp() {
         //public Casilla(boolean PF, boolean PD, boolean PA, boolean PI, int x, int y)
-        PF = true;
-        PD = false;
-        PA = false;
-        PI = true;
-        casillaInicio = new Casilla(PF, PD, PA, PI, 0,0);
         mem = new Memory();
-        giro = Memory.DERECHA;
+        caminoPrueba = mem.getCamino();
+        casillasNoVisitadas = mem.getCasillasNoVisitadas();
+        //giro = Memory.DERECHA;
     }
     
     @After
@@ -120,85 +122,148 @@ public class MemoryTest {
         fail("The test case is a prototype.");
     }
     
-    @Test
-    public void testInicio(){
-        //  mem.isInicio = true
-        //  si es true se coloca el norte hacia el frente del automata
-        //  se calcula el moviento del automata y se ubica el norte deacuerdo a
-        //  este movimiento.
-        if (mem.isInicio()){
-            x = 0;
-            y = 0;
-            switch(giro){
-                case Memory.DERECHA:
-                    mem.setNorte(Memory.IZQUIERDA);
-                    x++;
-                    break;
-                case Memory.IZQUIERDA:
-                    mem.setNorte(Memory.DERECHA);
-                    x--;
-                    break;
-                case Memory.ATRAS:
-                    mem.setNorte(Memory.ATRAS);
-                    y--;
-                    break;
-                default: //se mueve hacia el frente
-                    y++;
-            }
-            
-            mem.setX(x);
-            mem.setY(y);
-            mem.setInicio(false);
-            caminoPrueba = mem.getCamino();
-            caminoPrueba.put(casillaInicio, null);
-            mem.setCasillaAnterior(casillaInicio);
-            for (Casilla c: caminoPrueba.keySet())
-                System.out.println("x = " + c.getX() + " y = " + c.getY());
-            System.out.println("Norte " + mem.getNorte());
+    //@Test
+    public void testRecorrido(){
+        int norte;
+        x = mem.getX();
+        y = mem.getY();
+        norte = mem.getNorte();
+        casilla = new Casilla(x,y);
+        vecinos = new ArrayList<>();
+        flag = false;
+        n = false;
+        switch(norte){
+            case Memory.DERECHA:
+                if(!PF){
+                    girar(-1, 0, Memory.FRENTE);                       
+                }
+                if(!PD){
+                    girar(0, 1, Memory.DERECHA);
+                    if(flag && n )
+                        mem.setNorte(Memory.FRENTE);
+                }
+                if(!PI){
+                    girar(0, -1, Memory.IZQUIERDA);
+                    if(flag && n)
+                        mem.setNorte(Memory.ATRAS);
+                }
+                if(!PA){
+                    girar(1, 0, Memory.ATRAS);
+                    if(flag && n)
+                        mem.setNorte(Memory.IZQUIERDA);
+                }
+                break;
+            case Memory.IZQUIERDA:
+                if(!PF){
+                    girar(1, 0, Memory.FRENTE);
+                }
+                if(!PD){
+                    girar(0, -1, Memory.DERECHA);
+                    if(flag && n)
+                        mem.setNorte(Memory.ATRAS);
+                }
+                if(!PI){
+                    girar(0, 1, Memory.IZQUIERDA);
+                    if(flag && n)
+                        mem.setNorte(Memory.FRENTE);
+                }
+                if(!PA){
+                    girar(-1, 0, Memory.ATRAS);
+                    if(flag && n)
+                        mem.setNorte(Memory.DERECHA);
+                }
+                break;
+            case Memory.FRENTE:
+                if(!PF){
+                    girar(0, 1, Memory.FRENTE);
+                }
+                if(!PD){
+                    girar(1, 0, Memory.DERECHA);
+                    if(flag && n)
+                        mem.setNorte(Memory.IZQUIERDA);
+                }
+                if(!PI){
+                    girar(-1, 0, Memory.IZQUIERDA);
+                    if(flag && n)
+                        mem.setNorte(Memory.DERECHA);
+                }
+                if(!PA){
+                    girar(0, -1, Memory.ATRAS);
+                    if(flag && n)
+                        mem.setNorte(Memory.ATRAS);
+                }
+                break;
+            case Memory.ATRAS:
+                if(!PF){
+                    girar(0, -1, Memory.FRENTE);
+                }
+                if(!PD){
+                    girar(-1, 0, Memory.DERECHA);
+                    if(flag && n)
+                        mem.setNorte(Memory.DERECHA);
+                }
+                if(!PI){
+                    girar(1, 0, Memory.IZQUIERDA);
+                    if(flag && n)
+                        mem.setNorte(Memory.IZQUIERDA);
+                }
+                if(!PA){
+                    girar(0, 1, Memory.ATRAS);
+                    if(flag && n)
+                        mem.setNorte(Memory.FRENTE);
+                }
+                break;
         }
-        if(mem.isInicio() == false){
-            int norte;
-            x = mem.getX();
-            y = mem.getY();
-            norte = mem.getNorte();
-            //valores que recibe la funcion int accion(boolean PF, boolean PD, boolean PA, boolean PI, boolean MT)
-            //creamos una nueva casilla
-            PF = false;
-            PD = true;
-            PA = false;
-            PI = true;
-            
-            switch(norte){
-                case Memory.DERECHA:
-                    RPF = PD;
-                    RPD = PA;
-                    RPA = PI;
-                    RPI = PF;
-                    break;
-                case Memory.ATRAS:
-                    RPF = PA;
-                    RPD = PI;
-                    RPA = PF;
-                    RPI = PD;
-                    break;
-                case Memory.IZQUIERDA:
-                    RPF = PI;
-                    RPD = PF;
-                    RPA = PD;
-                    RPI = PA;
-                    break;
-                    
-            }
-            Casilla casilla = new Casilla(RPF, RPD, RPA, RPI, x,y);
-            vecinos = new ArrayList<>();
-            vecinos.add(mem.getCasillaAnterior());
-            caminoPrueba.put(casilla, vecinos);
-            System.out.println("siguiente");
-            for (Casilla c: caminoPrueba.keySet()){
-                System.out.println("PF " + c.isPF()+ " PD " + c.isPD() + " PA " + c.isPA() + " PI " + c.isPI());
-                System.out.println("x = " + c.getX() + " y = " + c.getY());
-            }
-        }
+        
+        caminoPrueba.put(casilla, vecinos);
+        mem.setCamino(caminoPrueba);
+        mem.setCasillasNoVisitadas(casillasNoVisitadas);
     }
     
+    public void girar(int i, int j,int mov){
+        int tx = x + i;
+        int ty = y + j;
+        Casilla tCasilla;
+        tCasilla = new Casilla(tx,ty);
+        vecinos.add(tCasilla);
+        if(!flag){
+            if (caminoPrueba.containsKey(tCasilla)){
+                if(casillasNoVisitadas.contains(tCasilla)){
+                    giro = mov;
+                    flag = true;
+                    casillasNoVisitadas.remove(tCasilla);
+                    mem.setX(tx);
+                    mem.setY(ty);
+                    n = true;
+                }
+            }else{
+                caminoPrueba.put(tCasilla, null);
+                giro = mov;
+                flag = true;
+                mem.setX(tx);
+                mem.setY(ty);
+                n = true;
+            }
+        }else{
+            if (!caminoPrueba.containsKey(tCasilla)){
+                caminoPrueba.put(tCasilla, null);
+                casillasNoVisitadas.add(tCasilla);
+            }
+            n = false;
+        }
+    }
+
+    @Test
+    public void pruebas(){
+        PF = true;
+        PD = true;
+        PA = false;
+        PI = false;
+        testRecorrido();
+        PF = true;
+        PD = false;
+        PA = false;
+        PI = false;
+        testRecorrido();
+    }
 }

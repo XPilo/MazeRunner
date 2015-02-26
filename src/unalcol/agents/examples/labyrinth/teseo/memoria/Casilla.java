@@ -5,67 +5,24 @@
  */
 package unalcol.agents.examples.labyrinth.teseo.memoria;
 
-import java.util.ArrayList;
 
 /**
  *
  * @author Jose
  */
 public class Casilla {
-    private boolean PF;
-    private boolean PD;
-    private boolean PA;
-    private boolean PI;
     private int x;
     private int y;
 
     public Casilla() {
     }
 
-    public Casilla(boolean PF, boolean PD, boolean PA, boolean PI, int x, int y) {
-        this.PF = PF;
-        this.PD = PD;
-        this.PA = PA;
-        this.PI = PI;
+    public Casilla(int x, int y) {
         this.x = x;
         this.y = y;
     }
-    
-    
-
-    public boolean isPF() {
-        return PF;
-    }
-
-    public void setPF(boolean PF) {
-        this.PF = PF;
-    }
-
-    public boolean isPD() {
-        return PD;
-    }
-
-    public void setPD(boolean PD) {
-        this.PD = PD;
-    }
-
-    public boolean isPA() {
-        return PA;
-    }
-
-    public void setPA(boolean PA) {
-        this.PA = PA;
-    }
-
-    public boolean isPI() {
-        return PI;
-    }
-
-    public void setPI(boolean PI) {
-        this.PI = PI;
-    }
-
-    public int getX() {
+   
+     public int getX() {
         return x;
     }
 
@@ -83,13 +40,9 @@ public class Casilla {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 11 * hash + (this.PF ? 1 : 0);
-        hash = 11 * hash + (this.PD ? 1 : 0);
-        hash = 11 * hash + (this.PA ? 1 : 0);
-        hash = 11 * hash + (this.PI ? 1 : 0);
-        hash = 11 * hash + this.x;
-        hash = 11 * hash + this.y;
+        int hash = 7;
+        hash = 73 * hash + this.x;
+        hash = 73 * hash + this.y;
         return hash;
     }
 
@@ -102,18 +55,6 @@ public class Casilla {
             return false;
         }
         final Casilla other = (Casilla) obj;
-        if (this.PF != other.PF) {
-            return false;
-        }
-        if (this.PD != other.PD) {
-            return false;
-        }
-        if (this.PA != other.PA) {
-            return false;
-        }
-        if (this.PI != other.PI) {
-            return false;
-        }
         if (this.x != other.x) {
             return false;
         }
@@ -122,7 +63,6 @@ public class Casilla {
         }
         return true;
     }
-    
-    
+
     
 }
