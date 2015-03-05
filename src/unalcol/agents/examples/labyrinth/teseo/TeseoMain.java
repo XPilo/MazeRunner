@@ -1,8 +1,10 @@
-package unalcol.agents.examples.labyrinth.teseo;
+package unalcol.agents.examples.labyrinth.tese;
 import unalcol.agents.Agent;
-
 import unalcol.agents.examples.labyrinth.*;
-import unalcol.agents.examples.labyrinth.teseo.simple.RandomReflexTeseo;
+import unalcol.agents.examples.labyrinth.teseo.agentP.AgentP;
+import unalcol.agents.examples.labyrinth.teseo.wallE.WallE;
+
+
 import unalcol.agents.simulate.util.*;
 
 public class TeseoMain {
@@ -16,7 +18,7 @@ public class TeseoMain {
   public static void main( String[] argv ){
     //  InteractiveAgentProgram p = new InteractiveAgentProgram( getLanguage() );
 //    TeseoSimple p = new TeseoSimple();
-    RandomReflexTeseo p = new RandomReflexTeseo();
+    AgentP p = new AgentP();
     p.setLanguage(getLanguage());
     LabyrinthDrawer.DRAW_AREA_SIZE = 600;
     LabyrinthDrawer.CELL_SIZE = 40;

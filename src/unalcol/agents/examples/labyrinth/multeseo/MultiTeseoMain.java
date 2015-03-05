@@ -8,6 +8,10 @@ import unalcol.agents.Agent;
 import unalcol.agents.AgentProgram;
 import unalcol.agents.examples.labyrinth.Labyrinth;
 import unalcol.agents.examples.labyrinth.LabyrinthDrawer;
+import unalcol.agents.examples.labyrinth.teseo.code47.Code47;
+import unalcol.agents.examples.labyrinth.teseo.elCinco.ElCinco;
+import unalcol.agents.examples.labyrinth.teseo.elCinco.Runner;
+import unalcol.agents.examples.labyrinth.teseo.seth.SethSimpleLabyrinthAgent;
 import unalcol.agents.simulate.util.SimpleLanguage;
 import unalcol.types.collection.vector.Vector;
 
@@ -21,7 +25,17 @@ public class MultiTeseoMain {
   }
 
   public static void main( String[] argv ){
-     AgentProgram[] teseo = new AgentProgram[12];
+     AgentProgram[] teseo = new AgentProgram[4];
+     teseo[0] = new ElCinco(getLanguage());
+     
+     teseo[1] = new SethSimpleLabyrinthAgent();
+     ((SethSimpleLabyrinthAgent) teseo[1]).setLanguage(getLanguage());
+     
+     teseo[2] = new Code47();
+     ((Code47) teseo[2]).setLanguage(getLanguage());
+     
+     teseo[3] = new Runner();
+     ((Runner) teseo[3]).setLanguage(getLanguage());
      /*teseo[0] = new JamesBond(getLanguage());
      teseo[1] = new TeseoJJ();
      ((TeseoJJ) teseo[1]).setLanguage(getLanguage());
@@ -86,8 +100,10 @@ public class MultiTeseoMain {
      teseo[10] = new TesoCai();
      ((TesoCai)teseo[10]).setLanguage(getLanguage());                              
     */  
-    int index1 = 10;
-    int index2 = 8;
+    int index1 = 0;
+    int index2 = 1;
+    int index3 = 2;
+    int index4 = 3;
     
     LabyrinthDrawer.DRAW_AREA_SIZE = 600;
     LabyrinthDrawer.CELL_SIZE = 40;
@@ -95,11 +111,15 @@ public class MultiTeseoMain {
     
     Agent agent1 = new Agent(teseo[index1]);    
     Agent agent2 = new Agent(teseo[index2]);
+    Agent agent3 = new Agent(teseo[index3]);
+    Agent agent4 = new Agent(teseo[index4]);
     
     //Agent agent3 = new Agent(p3);
     Vector<Agent> agent = new Vector();
     agent.add(agent1);
     agent.add(agent2);
+    agent.add(agent3);
+    agent.add(agent4);
 //    Agent agent = new Agent( new RandomReflexTeseoAgentProgram( getLanguage() ) );
     MultiAgentLabyrinthMainFrame frame = new MultiAgentLabyrinthMainFrame( agent, getLanguage() );
     frame.setVisible(true); 

@@ -1,4 +1,4 @@
-package unalcol.agents.examples.labyrinth.teseo;
+package unalcol.agents.examples.labyrinth.tese;
 
 import unalcol.reflect.loader.Loader;
 import unalcol.agents.*;

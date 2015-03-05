@@ -1,4 +1,4 @@
-package unalcol.agents.examples.labyrinth.teseo;
+package unalcol.agents.examples.labyrinth.tese;
 import unalcol.agents.examples.labyrinth.*;
 import unalcol.agents.simulate.util.*;
 import unalcol.types.collection.vector.*;

@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package unalcol.agents.examples.labyrinth.teseo.simple;
+package unalcol.agents.examples.labyrinth.teseo.elCinco;
 
+import unalcol.agents.examples.labyrinth.teseo.simple.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,16 +15,23 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import unalcol.agents.simulate.util.SimpleLanguage;
 
 /**
  *
  * @author Jonatan
  */
-public class RandomReflexTeseo  extends SimpleTeseoAgentProgram {
+public class ElCinco  extends SimpleTeseoAgentProgram {
     
     private static final String newLine = System.getProperty("line.separator");
 
-    public RandomReflexTeseo() {}
+    public ElCinco(SimpleLanguage _language) {
+     super.setLanguage( _language);
+    }
+    
+    public ElCinco() {
+     //grafo.add(new Nodo(position));
+    } 
 
     /**
      *
@@ -133,9 +141,14 @@ public class RandomReflexTeseo  extends SimpleTeseoAgentProgram {
             else if (!PI&&!PF&&!PD&&!PA){
                 ArrayList anteriores = lectura();
                 int tam = anteriores.size()-1;
+                //si no sabe para donde tomar y viene de una recta siga derecho a ver que encuentra
                 if (anteriores.get(tam).equals("F")  && anteriores.get(tam-1).equals("F")&& anteriores.get(tam-2).equals("F")){
                     k = 0;
                 }
+                if (anteriores.get(tam).equals("F")  && anteriores.get(tam-1).equals("F")&& anteriores.get(tam-2).equals("F")&& anteriores.get(tam-2).equals("F")&& anteriores.get(tam-2).equals("F")&& anteriores.get(tam-2).equals("F")&& anteriores.get(tam-2).equals("F")&& anteriores.get(tam-2).equals("F")&& anteriores.get(tam-2).equals("F")&& anteriores.get(tam-2).equals("F")){
+                    k = 1;
+                }
+                //si no sabe para donde tomar y viene de una casilla sin salida siga derecho a ver que encuentra
                 else if (anteriores.get(tam).equals("A")  && anteriores.get(tam-1).equals("A")&& anteriores.get(tam-2).equals("A")){
                     k = 0;
                 }
@@ -167,9 +180,14 @@ public class RandomReflexTeseo  extends SimpleTeseoAgentProgram {
             }            
         }
         
-        System.out.println("Está en el caso: "+caso+". Tome: "+ orden);
+        //System.out.println("Está en el caso: "+caso+". Tome: "+ orden);
         return k;
     } 
+    
+    /*
+    * Se guarda todo en un archivo a manera de pila para no depender de ninguna clase externa
+    */
+    
     
     private ArrayList lectura(){
         ArrayList pila = new ArrayList();
