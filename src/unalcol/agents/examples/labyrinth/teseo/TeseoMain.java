@@ -2,9 +2,9 @@ package unalcol.agents.examples.labyrinth.teseo;
 import unalcol.agents.Agent;
 
 import unalcol.agents.examples.labyrinth.*;
-import unalcol.agents.examples.labyrinth.teseo.simple.RandomReflexTeseo;
+import unalcol.agents.examples.labyrinth.teseo.elCinco.MyRunner;
 import unalcol.agents.simulate.util.*;
-import unalcol.agents.examples.labyrinth.teseo.simple.MyRunner;
+import unalcol.agents.examples.labyrinth.teseo.elCinco.Runner;
         
 
 public class TeseoMain {
@@ -17,7 +17,7 @@ public class TeseoMain {
 
   public static void main( String[] argv ){
     //  InteractiveAgentProgram p = new InteractiveAgentProgram( getLanguage() );
-//    TeseoSimple p = new TeseoSimple();
+    //Runner p = new Runner();
     //RandomReflexTeseo p = new RandomReflexTeseo();
     MyRunner p = new MyRunner();
     p.setLanguage(getLanguage());

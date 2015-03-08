@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package unalcol.agents.examples.labyrinth.teseo.memoria;
+package unalcol.agents.examples.labyrinth.teseo.elCinco;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,16 +21,18 @@ public class Memory {
     
     private int norte;
     private int x,y;
-    //private Casilla casillaAnterior;
-    private Map<Casilla, ArrayList<Casilla>> camino;
+    private ArrayList<Casilla> camino;
     private ArrayList<Casilla> casillasNoVisitadas;
+    private ArrayList<Casilla> caminoANoVisitada;
+    private boolean cerrado;
     
     public Memory(){
-        camino = new HashMap<>();
+        camino = new ArrayList<>();
         norte = FRENTE;
         x = 0;
         y = 0;
         casillasNoVisitadas = new ArrayList<>();
+        cerrado = false;
     }
 
     public int getNorte() {
@@ -56,22 +58,7 @@ public class Memory {
     public void setY(int y) {
         this.y = y;
     }
-
-//    public Casilla getCasillaAnterior() {
-//        return casillaAnterior;
-//    }
-//
-//    public void setCasillaAnterior(Casilla casillaAnterior) {
-//        this.casillaAnterior = casillaAnterior;
-//    }
   
-    public Map<Casilla, ArrayList<Casilla>> getCamino() {
-        return camino;
-    }
-
-    public void setCamino(Map<Casilla, ArrayList<Casilla>> camino) {
-        this.camino = camino;
-    }
 
     public ArrayList<Casilla> getCasillasNoVisitadas() {
         return casillasNoVisitadas;
@@ -80,5 +67,34 @@ public class Memory {
     public void setCasillasNoVisitadas(ArrayList<Casilla> casillasNoVisitadas) {
         this.casillasNoVisitadas = casillasNoVisitadas;
     }  
+
+    public boolean isCerrado() {
+        return cerrado;
+    }
+
+    public void setCerrado(boolean cerrado) {
+        this.cerrado = cerrado;
+    }
+
+    public ArrayList<Casilla> getCaminoANoVisitada() {
+        return caminoANoVisitada;
+    }
+
+    public void setCaminoANoVisitada(ArrayList<Casilla> caminoANoVisitada) {
+        this.caminoANoVisitada = caminoANoVisitada;
+    }
+
+    public ArrayList<Casilla> getCamino() {
+        return camino;
+    }
+
+    public void setCamino(ArrayList<Casilla> camino) {
+        this.camino = camino;
+    }
+    
+    public void addCasilla(Casilla casilla){
+        if(!camino.contains(casilla))
+            camino.add(casilla);
+    }
     
 }

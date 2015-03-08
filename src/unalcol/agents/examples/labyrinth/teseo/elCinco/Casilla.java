@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package unalcol.agents.examples.labyrinth.teseo.memoria;
+package unalcol.agents.examples.labyrinth.teseo.elCinco;
+
+import java.util.ArrayList;
 
 
 /**
@@ -13,6 +15,8 @@ package unalcol.agents.examples.labyrinth.teseo.memoria;
 public class Casilla {
     private int x;
     private int y;
+    private Casilla padre;
+    private ArrayList<Casilla> vecinos;
 
     public Casilla() {
     }
@@ -20,6 +24,7 @@ public class Casilla {
     public Casilla(int x, int y) {
         this.x = x;
         this.y = y;
+        vecinos = new ArrayList<>();
     }
    
      public int getX() {
@@ -38,6 +43,26 @@ public class Casilla {
         this.y = y;
     }
 
+    public Casilla getPadre() {
+        return padre;
+    }
+
+    public void setPadre(Casilla padre) {
+        this.padre = padre;
+    }    
+    
+        public ArrayList<Casilla> getVecinos() {
+        return vecinos;
+    }
+
+    public void setVecinos(ArrayList<Casilla> vecinos) {
+        this.vecinos = vecinos;
+    }
+    
+    public void addVecino(Casilla vecino){
+        if(!vecinos.contains(vecino))
+            vecinos.add(vecino);
+    }
     @Override
     public int hashCode() {
         int hash = 7;
@@ -63,6 +88,5 @@ public class Casilla {
         }
         return true;
     }
-
-    
+  
 }
