@@ -6,8 +6,7 @@
 package unalcol.agents.examples.labyrinth.teseo.elCinco;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  *
@@ -95,6 +94,23 @@ public class Memory {
     public void addCasilla(Casilla casilla){
         if(!camino.contains(casilla))
             camino.add(casilla);
+    }
+    
+    public Casilla getCasilla(int x,int y){
+        Casilla c = new Casilla(x, y);
+        if (camino.contains(c))
+            c = camino.get(camino.indexOf(c));
+        else
+            c = null;
+        return c;
+    }
+    
+    public Casilla getCasilla(Casilla c){
+        if (camino.contains(c))
+            c = camino.get(camino.indexOf(c));
+        else
+            c = null;
+        return c;
     }
     
 }

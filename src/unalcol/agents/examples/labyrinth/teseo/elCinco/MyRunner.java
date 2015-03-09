@@ -79,17 +79,17 @@ public class MyRunner extends SimpleTeseoAgentProgram {
         n = false;
         switch(norte){
             case Memory.DERECHA:
-                if(!PF){
-                    girar(-1, 0, Memory.FRENTE);
-                    if(mem.isCerrado())
-                        break;
-                }
                 if(!PD){
                     girar(0, 1, Memory.DERECHA);
                     if(mem.isCerrado())
                         break;
                     if(flag && n )
                         mem.setNorte(Memory.FRENTE);
+                }
+                if(!PF){
+                    girar(-1, 0, Memory.FRENTE);
+                    if(mem.isCerrado())
+                        break;
                 }
                 if(!PI){
                     girar(0, -1, Memory.IZQUIERDA);
@@ -107,17 +107,17 @@ public class MyRunner extends SimpleTeseoAgentProgram {
                 }
                 break;
             case Memory.IZQUIERDA:
-                if(!PF){
-                    girar(1, 0, Memory.FRENTE);
-                    if(mem.isCerrado())
-                        break;
-                }
                 if(!PD){
                     girar(0, -1, Memory.DERECHA);
                     if(mem.isCerrado())
                         break;
                     if(flag && n)
                         mem.setNorte(Memory.ATRAS);
+                }
+                if(!PF){
+                    girar(1, 0, Memory.FRENTE);
+                    if(mem.isCerrado())
+                        break;
                 }
                 if(!PI){
                     girar(0, 1, Memory.IZQUIERDA);
@@ -135,17 +135,17 @@ public class MyRunner extends SimpleTeseoAgentProgram {
                 }
                 break;
             case Memory.FRENTE:
-                if(!PF){
-                    girar(0, 1, Memory.FRENTE);
-                    if(mem.isCerrado())
-                        break;
-                }
                 if(!PD){
                     girar(1, 0, Memory.DERECHA);
                     if(mem.isCerrado())
                         break;
                     if(flag && n)
                         mem.setNorte(Memory.IZQUIERDA);
+                }
+                if(!PF){
+                    girar(0, 1, Memory.FRENTE);
+                    if(mem.isCerrado())
+                        break;
                 }
                 if(!PI){
                     girar(-1, 0, Memory.IZQUIERDA);
@@ -163,17 +163,17 @@ public class MyRunner extends SimpleTeseoAgentProgram {
                 }
                 break;
             case Memory.ATRAS:
-                if(!PF){
-                    girar(0, -1, Memory.FRENTE);
-                    if(mem.isCerrado())
-                        break;
-                }
                 if(!PD){
                     girar(-1, 0, Memory.DERECHA);
                     if(mem.isCerrado())
                         break;
                     if(flag && n)
                         mem.setNorte(Memory.DERECHA);
+                }
+                if(!PF){
+                    girar(0, -1, Memory.FRENTE);
+                    if(mem.isCerrado())
+                        break;
                 }
                 if(!PI){
                     girar(1, 0, Memory.IZQUIERDA);
@@ -256,9 +256,7 @@ public class MyRunner extends SimpleTeseoAgentProgram {
      * Calcula el camino mas corto a la casilla no visitada mas cercana
      */
     private ArrayList<Casilla> caminoANoVisitada(){
-        Casilla casillaActual = new Casilla(mem.getX(),mem.getY());
-        int index = mem.getCamino().indexOf(casillaActual);
-        casillaActual = mem.getCamino().get(index);
+        Casilla casillaActual = mem.getCasilla(mem.getX(),mem.getY());
         Casilla padre;
         ArrayList<Casilla> pila = new ArrayList<>();
         ArrayList<Casilla> visitadas = new ArrayList<>();
@@ -271,13 +269,11 @@ public class MyRunner extends SimpleTeseoAgentProgram {
             visitadas.add(casillaActual);
             vecinos = casillaActual.getVecinos();
             for(Casilla c: vecinos){
-                index = mem.getCamino().indexOf(c);
-                c = mem.getCamino().get(index);
+                c = mem.getCasilla(c);
                 if(!visitadas.contains(c)){
                     c.setPadre(casillaActual);
                     if(mem.getCasillasNoVisitadas().contains(c)){
-                        camino.add(c);
-                            
+                        camino.add(c);                    
                         padre = c.getPadre();
                         while (padre!=null){
                             camino.add(0,padre);
