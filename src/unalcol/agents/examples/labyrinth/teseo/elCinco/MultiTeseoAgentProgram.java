@@ -1,4 +1,4 @@
-package unalcol.agents.examples.labyrinth.teseo.simple;
+package unalcol.agents.examples.labyrinth.teseo.elCinco;
 
 import unalcol.agents.AgentProgram;
 import unalcol.agents.Percept;
@@ -18,10 +18,10 @@ import unalcol.agents.Action;
  * @author Jonatan Gómez
  * @version 1.0
  */
-public abstract class SimpleTeseoAgentProgram  implements AgentProgram{
+public abstract class MultiTeseoAgentProgram  implements AgentProgram{
   protected SimpleLanguage language;
   protected Vector<String> cmd = new Vector<String>();
-  public SimpleTeseoAgentProgram( ) {
+  public MultiTeseoAgentProgram( ) {
   }
 
   public void setLanguage(  SimpleLanguage _language ){
@@ -32,7 +32,7 @@ public abstract class SimpleTeseoAgentProgram  implements AgentProgram{
     cmd.clear();
   }
 
-  public abstract int accion( boolean PF, boolean PD, boolean PA, boolean PI, boolean MT);
+  public abstract int accion( boolean PF, boolean PD, boolean PA, boolean PI, boolean MT, boolean AD, boolean AF, boolean AI, boolean AA );
 
   /**
    * execute
@@ -53,8 +53,16 @@ public abstract class SimpleTeseoAgentProgram  implements AgentProgram{
           booleanValue();
       boolean MT = ( (Boolean) p.getAttribute(language.getPercept(4))).
           booleanValue();
+      boolean AD = ( (Boolean) p.getAttribute(language.getPercept(5))).
+          booleanValue();
+      boolean AF = ( (Boolean) p.getAttribute(language.getPercept(6))).
+          booleanValue();
+      boolean AI = ( (Boolean) p.getAttribute(language.getPercept(7))).
+          booleanValue();
+      boolean AA = ( (Boolean) p.getAttribute(language.getPercept(8))).
+          booleanValue();
 
-      int d = accion(PF, PD, PA, PI, MT);
+      int d = accion(PF, PD, PA, PI, MT,AD, AF, AI, AA);
       /**
        * d = 0 el automata no gira
        * d = 1 el automata gira una vez

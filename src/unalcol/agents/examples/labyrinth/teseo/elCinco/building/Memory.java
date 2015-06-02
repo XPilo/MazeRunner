@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package unalcol.agents.examples.labyrinth.teseo.elCinco;
+package unalcol.agents.examples.labyrinth.teseo.elCinco.building;
 
 import java.util.ArrayList;
 
@@ -25,6 +25,7 @@ public class Memory {
     private ArrayList<Casilla> caminoANoVisitada;
     private boolean cerrado;
     private int count;
+    private Casilla destino;
     
     public Memory(){
         camino = new ArrayList<>();
@@ -122,6 +123,14 @@ public class Memory {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public Casilla getDestino() {
+        return destino;
+    }
+
+    public void setDestino(Casilla destino) {
+        this.destino = destino;
     }
      
 }

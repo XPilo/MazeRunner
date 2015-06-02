@@ -1,13 +1,17 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package unalcol.agents.examples.labyrinth.teseo.elCinco;
+
 import java.util.ArrayList;
-import unalcol.agents.examples.labyrinth.teseo.simple.SimpleTeseoAgentProgram;
 
 /**
  *
  * @author Jose
  */
-public class MyRunner extends SimpleTeseoAgentProgram {
+public class ElCinco extends MultiTeseoAgentProgram{
     
     private Memory mem;
     private int x;
@@ -16,164 +20,288 @@ public class MyRunner extends SimpleTeseoAgentProgram {
     private ArrayList<Casilla> camino;
     private ArrayList<Casilla> casillasNoVisitadas;
     private Casilla casilla;
-    boolean flag;
-    boolean n;
-    boolean cerrado;
+    private boolean flag;
+    private boolean n;
+    private boolean cerrado;
     private int norte;
+    private boolean AF;
+    private boolean AD;
+    private boolean AA;
+    private boolean AI;
 
-    public MyRunner() {
+    public ElCinco() {
         mem = new Memory();
         camino = mem.getCamino();
         casillasNoVisitadas = mem.getCasillasNoVisitadas();
     }
     
-    @Override    
-    public int accion(boolean PF, boolean PD, boolean PA, boolean PI, boolean MT) {
+    
+
+    @Override
+    public int accion(boolean PF, boolean PD, boolean PA, boolean PI, boolean MT, boolean AF, boolean AD, boolean AA, boolean AI) {
+        
         if (MT){ 
             mem = new Memory();
             camino = mem.getCamino();
             casillasNoVisitadas = mem.getCasillasNoVisitadas();
+            System.out.println("Meta alcanzada :D");
             return -1;
-            }
+        }
+        /**
+         * El automata solo se movera cuando el numero de giros k
+         * lo deje mirando hacia un lado sin pared.
+         * PF = 0
+         * PD = 1
+         * PA = 2
+         * PI = 3
+        */ 
+        this.AF = AF;
+        this.AD = AD;
+        this.AA = AA;
+        this.AI = AI;
+        try{
+        if(mem.getCount()>8){
+            mem = new Memory();
+            camino = mem.getCamino();
+            casillasNoVisitadas = mem.getCasillasNoVisitadas();
+            System.out.println("Automata en el medio, no se mueve buscando otra ruta");
+        }
 
         if (!mem.isCerrado())
             recorrerLaberinto(PF, PD, PA, PI);
-        else
+        else{
             giro = recorrerCamino();
+            /*if(giro ==-1){
+                        mem = new Memory();
+                        camino = mem.getCamino();
+                        casillasNoVisitadas = mem.getCasillasNoVisitadas();   
+                    }*/
+        }
+       if(giro == -1)
+           mem.setCount(mem.getCount()+1);
+       else
+           mem.setCount(0);
        return giro;
+        }catch(Exception ex){
+            mem = new Memory();
+            camino = mem.getCamino();
+            casillasNoVisitadas = mem.getCasillasNoVisitadas(); 
+            System.out.println("err err error, reiniciando...");
+            return -1;
+        }
+       
     }
     
-    public void recorrerLaberinto(boolean PF, boolean PD, boolean PA, boolean PI){
+public void recorrerLaberinto(boolean PF, boolean PD, boolean PA, boolean PI){
         x = mem.getX();
         y = mem.getY();
         norte = mem.getNorte();
         casilla = new Casilla(x,y);
-        //vecinos = new ArrayList<>();
         flag = false;
         n = false;
         switch(norte){
             case Memory.DERECHA:
-                if(!PD){
-                    girar(0, 1, Memory.DERECHA);
-                    if(mem.isCerrado())
-                        break;
-                    if(flag && n )
-                        mem.setNorte(Memory.FRENTE);
-                }
                 if(!PF){
+                    if(AF){
+                        automataCasilla(-1, 0);
+                    }else{
                     girar(-1, 0, Memory.FRENTE);
                     if(mem.isCerrado())
                         break;
+                    }
                 }
                 if(!PI){
+                    if(AI){
+                        automataCasilla(0, -1);
+                    }else{
                     girar(0, -1, Memory.IZQUIERDA);
                     if(mem.isCerrado())
                         break;
                     if(flag && n)
                         mem.setNorte(Memory.ATRAS);
+                    }
+                }
+                if(!PD){
+                    if(AD){
+                        automataCasilla(0, 1);
+                    }else{
+                    girar(0, 1, Memory.DERECHA);
+                    if(mem.isCerrado())
+                        break;
+                    if(flag && n )
+                        mem.setNorte(Memory.FRENTE);
+                    }
                 }
                 if(!PA){
+                    if(AA){
+                        automataCasilla(1, 0);
+                    }else{
                     girar(1, 0, Memory.ATRAS);
                     if(mem.isCerrado())
                         break;
                     if(flag && n)
                         mem.setNorte(Memory.IZQUIERDA);
+                    }
                 }
                 break;
             case Memory.IZQUIERDA:
-                if(!PD){
-                    girar(0, -1, Memory.DERECHA);
-                    if(mem.isCerrado())
-                        break;
-                    if(flag && n)
-                        mem.setNorte(Memory.ATRAS);
-                }
                 if(!PF){
+                    if(AF){
+                        automataCasilla(1, 0);
+                    }else{
                     girar(1, 0, Memory.FRENTE);
                     if(mem.isCerrado())
                         break;
+                    }
                 }
                 if(!PI){
+                    if(AI){
+                        automataCasilla(0, 1);
+                    }else{
                     girar(0, 1, Memory.IZQUIERDA);
                     if(mem.isCerrado())
                         break;
                     if(flag && n)
                         mem.setNorte(Memory.FRENTE);
+                    }
+                }
+                if(!PD){
+                    if(AD){
+                        automataCasilla(0, -1);
+                    }else{
+                    girar(0, -1, Memory.DERECHA);
+                    if(mem.isCerrado())
+                        break;
+                    if(flag && n)
+                        mem.setNorte(Memory.ATRAS);
+                    }
                 }
                 if(!PA){
+                    if(AA){
+                        automataCasilla(-1, 0);
+                    }else{
                     girar(-1, 0, Memory.ATRAS);
                     if(mem.isCerrado())
                         break;
                     if(flag && n)
                         mem.setNorte(Memory.DERECHA);
+                    }
                 }
                 break;
             case Memory.FRENTE:
-                if(!PD){
-                    girar(1, 0, Memory.DERECHA);
-                    if(mem.isCerrado())
-                        break;
-                    if(flag && n)
-                        mem.setNorte(Memory.IZQUIERDA);
-                }
                 if(!PF){
+                    if(AF){
+                        automataCasilla(0, 1);
+                    }else{
                     girar(0, 1, Memory.FRENTE);
                     if(mem.isCerrado())
                         break;
+                    }
                 }
                 if(!PI){
+                    if(AI){
+                        automataCasilla(-1, 0);
+                    }else{
                     girar(-1, 0, Memory.IZQUIERDA);
                     if(mem.isCerrado())
                         break;
                     if(flag && n)
                         mem.setNorte(Memory.DERECHA);
+                    }
+                }
+                if(!PD){
+                    if(AD){
+                        automataCasilla(1, 0);
+                    }else{
+                    girar(1, 0, Memory.DERECHA);
+                    if(mem.isCerrado())
+                        break;
+                    if(flag && n)
+                        mem.setNorte(Memory.IZQUIERDA);
+                    }
                 }
                 if(!PA){
+                    if(AA){
+                        automataCasilla(0, -1);
+                    }else{
                     girar(0, -1, Memory.ATRAS);
                     if(mem.isCerrado())
                         break;
                     if(flag && n)
                         mem.setNorte(Memory.ATRAS);
+                    }
                 }
                 break;
             case Memory.ATRAS:
-                if(!PD){
-                    girar(-1, 0, Memory.DERECHA);
-                    if(mem.isCerrado())
-                        break;
-                    if(flag && n)
-                        mem.setNorte(Memory.DERECHA);
-                }
                 if(!PF){
+                    if(AF){
+                        automataCasilla(0, -1);
+                    }else{
                     girar(0, -1, Memory.FRENTE);
                     if(mem.isCerrado())
                         break;
+                    }
                 }
                 if(!PI){
+                    if(AI){
+                        automataCasilla(1, 0);
+                    }else{
                     girar(1, 0, Memory.IZQUIERDA);
                     if(mem.isCerrado())
                         break;
                     if(flag && n)
                         mem.setNorte(Memory.IZQUIERDA);
+                    }
+                }
+                if(!PD){
+                    if(AD){
+                        automataCasilla(-1, 0);
+                    }else{
+                    girar(-1, 0, Memory.DERECHA);
+                    if(mem.isCerrado())
+                        break;
+                    if(flag && n)
+                        mem.setNorte(Memory.DERECHA);
+                    }
                 }
                 if(!PA){
+                    if(AA){
+                        automataCasilla(0, 1);
+                    }else{
                     girar(0, 1, Memory.ATRAS);
                     if(mem.isCerrado())
                         break;
                     if(flag && n)
                         mem.setNorte(Memory.FRENTE);
+                    }
                 }
                 break;
         }
-        if(!mem.isCerrado()){
-            if (camino.contains(casilla)){
-                camino.remove(casilla);
+        if(flag){
+            if(!mem.isCerrado()){
+                if (camino.contains(casilla)){
+                    camino.remove(casilla);
+                }
+                camino.add(casilla);
+                mem.setCamino(camino);
+                mem.setCasillasNoVisitadas(casillasNoVisitadas);
             }
-            camino.add(casilla);
-            mem.setCamino(camino);
-            mem.setCasillasNoVisitadas(casillasNoVisitadas);
-        }
+        }//else
+           // giro = -1;
     }
+
+public void automataCasilla(int x, int y){
+    int tx = mem.getX();
+    int ty = mem.getY();
+    Casilla t = new Casilla(tx + x, ty + y);
+    t.addVecino(casilla);
+    casilla.addVecino(t);
+    if(!camino.contains(t)){
+        mem.addCasilla(casilla);
+        mem.addCasilla(t);
+        casillasNoVisitadas.add(t);
+    }
+}
 
     public void girar(int i, int j,int mov){
         int tx = x + i;
@@ -193,8 +321,14 @@ public class MyRunner extends SimpleTeseoAgentProgram {
                     n = true;
                 }else{
                     mem.setCerrado(true);
-                    caminoANoVisitada();
-                    giro = recorrerCamino();
+                    //camino.put(tCasilla, vecinosTCasilla);
+                    if(caminoANoVisitada()!=null)
+                        giro = recorrerCamino();
+                    /*if(giro ==-1){
+                        mem = new Memory();
+                        camino = mem.getCamino();
+                        casillasNoVisitadas = mem.getCasillasNoVisitadas();   
+                    }*/
                 }
             }else{
                 camino.add(tCasilla);
@@ -212,7 +346,12 @@ public class MyRunner extends SimpleTeseoAgentProgram {
             n = false;
         }
     }
-
+    /**
+     * 
+     * @return ArrayList<Casilla> Camino
+     * 
+     * Calcula el camino mas corto a la casilla no visitada mas cercana
+     */
     private ArrayList<Casilla> caminoANoVisitada(){
         Casilla casillaActual = mem.getCasilla(mem.getX(),mem.getY());
         Casilla padre;
@@ -246,12 +385,22 @@ public class MyRunner extends SimpleTeseoAgentProgram {
                     
                 }
             }
+            if(pila.isEmpty()){
+                giro =-1;
+                return null;
+            }
             casillaActual = pila.get(0);
         }
         
         return null;
     }
     
+    /**
+     * 
+     * @return int giro
+     * 
+     * Recorre el camino devuelto pot caminoANoVistada()
+     */
     private int recorrerCamino() {
         ArrayList<Casilla> camino = mem.getCaminoANoVisitada();
         norte = mem.getNorte();
@@ -340,6 +489,31 @@ public class MyRunner extends SimpleTeseoAgentProgram {
                     break;
                 }
         }
+        switch(giro){
+            case Memory.ATRAS:
+                if(AA){
+                    mem.setNorte(norte);
+                    return -1;
+                }
+                break;
+            case Memory.FRENTE:
+                if(AF){
+                    mem.setNorte(norte);
+                    return -1;
+                }
+                break;
+            case Memory.DERECHA:
+                if(AD){
+                    mem.setNorte(norte);
+                    return -1;
+                }
+                break;
+            case Memory.IZQUIERDA:
+                if(AI){
+                    mem.setNorte(norte);
+                    return -1;
+                }
+        }
         mem.setX(destino.getX());
         mem.setY(destino.getY());
         camino.remove(0);
@@ -354,4 +528,5 @@ public class MyRunner extends SimpleTeseoAgentProgram {
         }
         return giro;
     }
+    
 }
