@@ -25,6 +25,7 @@ public class Memory {
     private ArrayList<Casilla> caminoANoVisitada;
     private boolean cerrado;
     private int count;
+    private boolean alreadyEat;
     
     public Memory(){
         camino = new ArrayList<>();
@@ -34,6 +35,7 @@ public class Memory {
         casillasNoVisitadas = new ArrayList<>();
         cerrado = false;
         count = 0;
+        alreadyEat = false;
     }
 
     public int getNorte() {
@@ -122,6 +124,14 @@ public class Memory {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public boolean isAlreadyEat() {
+        return alreadyEat;
+    }
+
+    public void setAlreadyEat(boolean alreadyEat) {
+        this.alreadyEat = alreadyEat;
     }
      
 }
