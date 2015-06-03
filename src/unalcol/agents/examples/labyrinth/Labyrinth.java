@@ -34,7 +34,7 @@ public class Labyrinth extends Environment{
     if( flag ){
         if( delay > 0 ){
           try{
-            agent.sleep(delay);
+            agent.sleep(0);
           }catch(Exception e ){}
         }
         String act = action.getCode();

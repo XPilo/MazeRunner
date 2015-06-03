@@ -5,6 +5,7 @@ import unalcol.agents.examples.labyrinth.*;
 import unalcol.agents.examples.labyrinth.teseo.elCinco.MyRunner;
 import unalcol.agents.simulate.util.*;
 import unalcol.agents.examples.labyrinth.teseo.elCinco.Runner;
+import unalcol.agents.examples.labyrinth.teseo.jff.JustForMultiFun;
         
 
 public class TeseoMain {
@@ -19,7 +20,7 @@ public class TeseoMain {
     //  InteractiveAgentProgram p = new InteractiveAgentProgram( getLanguage() );
     //Runner p = new Runner();
     //RandomReflexTeseo p = new RandomReflexTeseo();
-    MyRunner p = new MyRunner();
+    JustForMultiFun p = new JustForMultiFun();
     p.setLanguage(getLanguage());
     LabyrinthDrawer.DRAW_AREA_SIZE = 600;
     LabyrinthDrawer.CELL_SIZE = 40;
